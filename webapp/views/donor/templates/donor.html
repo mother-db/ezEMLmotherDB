@@ -187,7 +187,12 @@
      <script type = "text/javascript">
 <!--        document.getElementById("donorGender").setAttribute("readonly","readonly");-->
         document.getElementById("specimenTissue").setAttribute("readonly","readonly");
-
+        var stageOfCycle_text = document.createElement("input");
+        stageOfCycle_text.id = "stageOfCycle";
+        stageOfCycle_text.className = "form-control";
+        stageOfCycle_text.name = "stageOfCycle";
+        stageOfCycle_text.onchange = "stageOfFunction()";
+        var stageOfCycle_select = document.getElementById("stageOfCycle");
         function specimenLocationFunction(){
             let specimenLocation_box_value = document.getElementById("specimenLocation").value;
             if(specimenLocation_box_value == "corpusLuteum"){
@@ -337,7 +342,7 @@
                 s2.disabled = false;
                 var optionArray = ["|", "unspecified|Unspecified", "proestrus|Proestrus", "estrus|Estrus", "metestrus|Metestrus", "diestrus|Diestrus", "anestrus|Anestrus"];
             }else if (s1.value == "other"){
-                s2.disabled = true;
+                s2.replaceWith(stageOfCycle_text);
             }else{
                 var optionArray = ["|"];
             }
