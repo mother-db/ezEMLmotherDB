@@ -57,6 +57,7 @@
                                     <td style="padding: 1px 5px;" width="15%">{{ wtf.form_field(form.donorType) }}</td>
                                     <td width="1%">&nbsp;</td>
                                     <td style="padding: 5px 10px;" width="25%">{{ wtf.form_field(form.stageOfCycle) }}</td>
+                                    <td style="display:none; padding: 5px 10px;" width="25%">{{ wtf.form_field(form.stageOfCycleOther) }}</td>
                                     <td width="1%">&nbsp;</td>
                                 </table>
 
@@ -187,12 +188,6 @@
      <script type = "text/javascript">
 <!--        document.getElementById("donorGender").setAttribute("readonly","readonly");-->
         document.getElementById("specimenTissue").setAttribute("readonly","readonly");
-        var stageOfCycle_text = document.createElement("input");
-        stageOfCycle_text.id = "stageOfCycle";
-        stageOfCycle_text.className = "form-control";
-        stageOfCycle_text.name = "stageOfCycle";
-        stageOfCycle_text.onchange = "stageOfFunction()";
-        var stageOfCycle_select = document.getElementById("stageOfCycle");
         function specimenLocationFunction(){
             let specimenLocation_box_value = document.getElementById("specimenLocation").value;
             if(specimenLocation_box_value == "corpusLuteum"){
@@ -334,15 +329,19 @@
         function speciesFunction(s1, s2) {
             var s1 = document.getElementById(s1);
             var s2 = document.getElementById(s2);
+            var stageOfCycleText = document.getElementById("stageOfCycleOther");
+            var stageOfCycleSelect= document.getElementById("stageOfCycle");
             s2.innerHTML = "";
             if (s1.value == "menstrual") {
+                s2.replaceWith(stageOfCycleSelect);
                 s2.disabled = false;
                 var optionArray = ["|", "unspecified|Unspecified", "follicular|Follicular", "pre-ovulatory|Pre-ovulatory", "ovulation|Ovulation", "luteal|Luteal"];
             } else if (s1.value == "estrous") {
+                s2.replaceWith(stageOfCycleSelect);
                 s2.disabled = false;
                 var optionArray = ["|", "unspecified|Unspecified", "proestrus|Proestrus", "estrus|Estrus", "metestrus|Metestrus", "diestrus|Diestrus", "anestrus|Anestrus"];
             }else if (s1.value == "other"){
-                s2.replaceWith(stageOfCycle_text);
+                s2.replaceWith(stageOfCycleText);
             }else{
                 var optionArray = ["|"];
             }
