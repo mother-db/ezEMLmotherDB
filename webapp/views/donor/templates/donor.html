@@ -330,27 +330,32 @@
             var s1 = document.getElementById(s1);
             var s2 = document.getElementById(s2);
             var stageOfCycleText = document.getElementById("stageOfCycleOther");
-            var stageOfCycleSelect= document.getElementById("stageOfCycle");
+            var stageOfCycleSelect = document.getElementById("stageOfCycle");
             s2.innerHTML = "";
-            if (s1.value == "menstrual") {
-                s2.replaceWith(stageOfCycleSelect);
-                s2.disabled = false;
-                var optionArray = ["|", "unspecified|Unspecified", "follicular|Follicular", "pre-ovulatory|Pre-ovulatory", "ovulation|Ovulation", "luteal|Luteal"];
-            } else if (s1.value == "estrous") {
-                s2.replaceWith(stageOfCycleSelect);
-                s2.disabled = false;
-                var optionArray = ["|", "unspecified|Unspecified", "proestrus|Proestrus", "estrus|Estrus", "metestrus|Metestrus", "diestrus|Diestrus", "anestrus|Anestrus"];
-            }else if (s1.value == "other"){
-                s2.replaceWith(stageOfCycleText);
-            }else{
-                var optionArray = ["|"];
-            }
-            for(var option in optionArray){
-                var pair = optionArray[option].split("|");
-                var newOption = document.createElement("option");
-                newOption.value = pair[0];
-                newOption.innerHTML = pair[1];
-                s2.options.add(newOption);
+            if (s1.value == "other") {
+                console.log("other selected");
+                stageOfCycleSelect.replaceWith(stageOfCycleText);
+                {#stageOfCycleText.id = "stageOfCycle";#}
+            } else {
+
+                if (s1.value == "menstrual") {
+                    console.log("menstrual selected");
+                    s2.disabled = false;
+                    var optionArray = ["|", "unspecified|Unspecified", "follicular|Follicular", "pre-ovulatory|Pre-ovulatory", "ovulation|Ovulation", "luteal|Luteal"];
+                } else if (s1.value == "estrous") {
+
+                    s2.disabled = false;
+                    var optionArray = ["|", "unspecified|Unspecified", "proestrus|Proestrus", "estrus|Estrus", "metestrus|Metestrus", "diestrus|Diestrus", "anestrus|Anestrus"];
+                } else {
+                    var optionArray = ["|"];
+                }
+                for (var option in optionArray) {
+                    var pair = optionArray[option].split("|");
+                    var newOption = document.createElement("option");
+                    newOption.value = pair[0];
+                    newOption.innerHTML = pair[1];
+                    s2.options.add(newOption);
+                }
             }
         }
 

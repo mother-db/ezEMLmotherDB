@@ -75,7 +75,7 @@ class DonorForm(EDIForm):
                                         ("diestrus", "Diestrus"),
                                         ("anestrus", "Anestrus")],
                                render_kw={'onchange': "stageOfCycleFunction()"})
-    stageOfCycleOther = StringField('Stage Of Cycle', validators=[Optional()], render_kw={'onchange': "stageOfCycleFunction()"})
+    stageOfCycleOther = StringField('Stage Of Cycle', validators=[Optional()])
     follicular = SelectField('Follicular Values',
                              choices=[("", ""),
                                       ("early", "Early"),
