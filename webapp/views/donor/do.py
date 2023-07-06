@@ -397,6 +397,8 @@ def populate_donor_form(form: DonorForm, node: Node):
                     form.donorType.data = "menstrual"
                 if xsi_type == "mdb:estrousStageType":
                     form.donorType.data = "estrous"
+                if xsi_type == "mdb:otherStageType":
+                    form.donorType.data = "other"
 
     slideID_node = node.find_child(mdb_names.SLIDE_ID)
     if slideID_node:
