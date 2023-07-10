@@ -17,22 +17,22 @@ class DonorForm(EDIForm):
     donorType = SelectField('Cycle Type',
                                 choices=[("",""),
                                          ("menstrual", "Menstrual"),
-                                         ("estrous", "Estrous"),
-                                         ("other", "Other")],
+                                         ("estrous", "Estrous")],
+                                         #("other", "Other")
                                 render_kw={'onchange': "speciesFunction(this.id, 'stageOfCycle')"})
     donorID = StringField('Donor ID *', validators=[InputRequired(message='Donor ID is required')])
-    donorGender = StringField('Sex *', validators=[InputRequired(message='Sex is required')], default='female')
+    donorSex = StringField('Sex *', validators=[InputRequired(message='Sex is required')], default='female')
     donorYears = IntegerField('Years', validators=[NumberRange(min=0), Optional()])
     donorDays = IntegerField('Days', validators=[NumberRange(min=0), Optional()])
     donorLifeStage = SelectField('Life Stage *',
                                  choices=[("", ""),
-                                          ("unspecified", "Unspecified"),
                                           ("fetal", "Fetal"),
                                           ("neonatal", "Neonatal"),
                                           ("prepubertal", "Prepubertal"),
                                           ("pubertal", "Pubertal"),
                                           ("adult", "Adult"),
-                                          ("aging", "Aging")],
+                                          ("aging", "Aging"),
+                                          ("unspecified", "Unspecified")],
                                  validators=[InputRequired(message='Life Stage is required')])
     specimenSeqNum = IntegerField('Specimen Sequence Number *', 
                                 validators=[NumberRange(min=0), InputRequired(message='Specimen Sequence Number is required')])
@@ -182,7 +182,7 @@ class DonorForm(EDIForm):
 
     def field_data(self) -> tuple:
         return (self.donorID.data,
-                self.donorGender.data,
+                self.donorSex.data,
                 self.donorYears.data,
                 self.donorDays.data,
                 self.donorLifeStage.data,

@@ -22,7 +22,7 @@
                             <td width="2%">&nbsp;</td>
                             <td style="padding: 5px 10px;" width="30%">{{ wtf.form_field(form.donorID) }}</td>
                             <td width="2%">&nbsp;</td>
-                            <td style="padding: 5px 10px;" width="15%">{{ wtf.form_field(form.donorGender) }}</td>
+                            <td style="padding: 5px 10px;" width="15%">{{ wtf.form_field(form.donorSex) }}</td>
                             <td width="2%">&nbsp;</td>
                             <td style="padding: 5px 10px;" width="10%">{{ wtf.form_field(form.donorYears) }}</td>
                             <td width="2%">&nbsp;</td>
@@ -186,7 +186,7 @@
     {% set help_donor_btn = help_donor_id ~ '_btn' %}
     {% set help_donor_dialog = help_donor_id ~ '_dialog' %}
      <script type = "text/javascript">
-<!--        document.getElementById("donorGender").setAttribute("readonly","readonly");-->
+<!--        document.getElementById("donorSex").setAttribute("readonly","readonly");-->
         document.getElementById("specimenTissue").setAttribute("readonly","readonly");
         function specimenLocationFunction(){
             let specimenLocation_box_value = document.getElementById("specimenLocation").value;
@@ -332,30 +332,24 @@
             var stageOfCycleText = document.getElementById("stageOfCycleOther");
             var stageOfCycleSelect = document.getElementById("stageOfCycle");
             s2.innerHTML = "";
-            if (s1.value == "other") {
-                console.log("other selected");
-                stageOfCycleSelect.replaceWith(stageOfCycleText);
-                {#stageOfCycleText.id = "stageOfCycle";#}
-            } else {
-
-                if (s1.value == "menstrual") {
-                    console.log("menstrual selected");
-                    s2.disabled = false;
-                    var optionArray = ["|", "unspecified|Unspecified", "follicular|Follicular", "pre-ovulatory|Pre-ovulatory", "ovulation|Ovulation", "luteal|Luteal"];
-                } else if (s1.value == "estrous") {
-
-                    s2.disabled = false;
-                    var optionArray = ["|", "unspecified|Unspecified", "proestrus|Proestrus", "estrus|Estrus", "metestrus|Metestrus", "diestrus|Diestrus", "anestrus|Anestrus"];
-                } else {
-                    var optionArray = ["|"];
-                }
-                for (var option in optionArray) {
-                    var pair = optionArray[option].split("|");
-                    var newOption = document.createElement("option");
-                    newOption.value = pair[0];
-                    newOption.innerHTML = pair[1];
-                    s2.options.add(newOption);
-                }
+            if (s1.value == "menstrual") {
+                s2.disabled = false;
+                var optionArray = ["|", "follicular|Follicular", "pre-ovulatory|Pre-ovulatory", "ovulation|Ovulation", "luteal|Luteal", "unspecified|Unspecified"];
+            } else if (s1.value == "estrous") {
+                s2.disabled = false;
+                var optionArray = ["|", "proestrus|Proestrus", "estrus|Estrus", "metestrus|Metestrus", "diestrus|Diestrus", "anestrus|Anestrus", "unspecified|Unspecified"];
+            }else if (s1.value == "other"){
+                s2.disabled = false;
+                var optionArray = ["unspecified|Unspecified"];
+            }else{
+                var optionArray = ["|"];
+            }
+            for(var option in optionArray){
+                var pair = optionArray[option].split("|");
+                var newOption = document.createElement("option");
+                newOption.value = pair[0];
+                newOption.innerHTML = pair[1];
+                s2.options.add(newOption);
             }
         }
 
