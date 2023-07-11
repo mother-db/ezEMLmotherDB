@@ -103,7 +103,7 @@ ANESTRUS = "anestrus"
 
 #Test for other choice
 OTHER = "other"
-
+STRING_STAGE = "stage"
 SLIDE_ID = "slideID"
 SEC_SEQ_NUM = "sectionSeqNum"
 
@@ -279,7 +279,7 @@ ESTROUS_STAGE = {
 }
 
 OTHER_STAGE = {
-    OTHER: "mdb:otherStageType"
+    STRING_STAGE: "mdb:otherStageType"
 }
 
 CYCLE_STAGE = {**MAMMAL_STAGE, **ESTROUS_STAGE, **OTHER_STAGE, EMPTY_UNSPECIFIED: ""}
