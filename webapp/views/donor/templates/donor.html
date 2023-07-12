@@ -56,8 +56,9 @@
                                     <td width="1%">&nbsp;</td>
                                     <td style="padding: 1px 5px;" width="15%">{{ wtf.form_field(form.donorType) }}</td>
                                     <td width="1%">&nbsp;</td>
-                                    <td style="padding: 5px 10px;" width="25%">{{ wtf.form_field(form.stageOfCycle) }}</td>
-                                    <td style="padding: 5px 10px;" width="25%">{{ wtf.form_field(form.stageOfCycleOther) }}</td>
+                                    <td style="padding: 5px 10px; display:contents" width="25%">{{ wtf.form_field(form.stageOfCycle) }}</td>
+                                    <td width="1%">&nbsp;</td>
+                                    <td style="padding: 5px 10px; display:contents" width="25%">{{ wtf.form_field(form.stageOfCycleOther) }}</td>
                                     <td width="1%">&nbsp;</td>
                                 </table>
 
@@ -329,26 +330,39 @@
         function speciesFunction(s1, s2) {
             var s1 = document.getElementById(s1);
             var s2 = document.getElementById(s2);
-            var stageOfCycleOther = document.getElementById("stageOfCycleOther");
-
+            var s3 = document.getElementById("stageOfCycleOther");
+            var s2Label = document.querySelector("label[for='stageOfCycle']");
+            var s3Label = document.querySelector("label[for='stageOfCycleOther']");
+            if (donorType.value === "other") {
+                s2.value = "Other";
+                s2.style.display = "none";
+                s2Label.style.display = "none";
+                s3.style.display = "block";
+                s3Label.style.display = "block";
+            } else {
+                s2.style.display = "block";
+                s2Label.style.display = "block";
+                s3.style.display = "none";
+                s3Label.style.display = "none";
+            }
             s2.innerHTML = "";
             if (s1.value == "menstrual") {
-                stageOfCycleOther.value = "";
-                stageOfCycleOther.disabled = true;
+                s3.value = "";
+                s3.disabled = true;
                 s2.disabled = false;
                 var optionArray = ["|", "follicular|Follicular", "pre-ovulatory|Pre-ovulatory", "ovulation|Ovulation", "luteal|Luteal", "unspecified|Unspecified"];
             } else if (s1.value == "estrous") {
-                stageOfCycleOther.value = "";
-                stageOfCycleOther.disabled = true;
+                s3.value = "";
+                s3.disabled = true;
                 s2.disabled = false;
                 var optionArray = ["|", "proestrus|Proestrus", "estrus|Estrus", "metestrus|Metestrus", "diestrus|Diestrus", "anestrus|Anestrus", "unspecified|Unspecified"];
             }else if (s1.value == "other"){
-                stageOfCycleOther.disabled = false;
+                s3.disabled = false;
                 s2.disabled = false;
                 var optionArray = ["stage|Other"];
 
             }else{
-                stageOfCycleOther.value = "";
+                s3.value = "";
                 var optionArray = ["|"];
             }
             for(var option in optionArray){
@@ -378,6 +392,9 @@
         electronMicroscopyStainTypeFunction();
         speciesPrev("donorType", "stageOfCycle");
 
+        window.addEventListener("DOMContentLoaded", function() {
+        speciesFunction(s1,s2);
+        });
     </script>
     <script>
     $(function()
