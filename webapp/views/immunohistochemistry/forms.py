@@ -22,7 +22,7 @@ class immunohistochemistryForm(EDIForm):
     # Protein
     targetProtein = StringField('Target Protein *', validators=[InputRequired(message='Target Protein is required')])
     # Primary Antibody
-    clonality = SelectField('Clonality', choices=[("", ""), ("monoclonal", "monoclonal"), ("polyclonal", "polyclonal")])
+    clonality = SelectField('Clonality *', choices=[("monoclonal", "monoclonal"), ("polyclonal", "polyclonal")])
     targetSpecies = StringField('Target Species *', validators=[InputRequired(message='Target Species is required')])
     hostSpecies = StringField('Host Species *', validators=[InputRequired(message='Host Species is required')])
     dilution = StringField('Dilution *', validators=[InputRequired(message='Dilution is required')])

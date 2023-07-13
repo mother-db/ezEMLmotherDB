@@ -104,6 +104,7 @@ ANESTRUS = "anestrus"
 #Test for other choice
 OTHER = "other"
 STRING_STAGE = "stage"
+
 SLIDE_ID = "slideID"
 SEC_SEQ_NUM = "sectionSeqNum"
 
