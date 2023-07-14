@@ -717,7 +717,7 @@ def check_immunohistochemistry(node, filename):
         add_to_evaluation('ihc_16', link)
     if find_err_code(evaluation_warnings, EvaluationWarningMp.IHC_SECONDARY_ANTIBODY_SOURCE_STATE_MISSING, mdb_names.IHC):
         add_to_evaluation('ihc_17', link)
-    if find_err_code(evaluation_warnings, EvaluationWarningMp.IHC_PRIMARY_ANTIBODY_CLONALITY_ENUM, mdb_names.IHC):
+    if find_err_code(evaluation_warnings, EvaluationWarningMp.CLONALITY, mdb_names.IHC):
         add_to_evaluation('ihc_18', link)
 
 
