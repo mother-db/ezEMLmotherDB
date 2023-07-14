@@ -98,3 +98,4 @@ class EvaluationWarningMp(Enum):
     DONOR_DAY_OF_CYCLE_NON_NEGATIVE = auto()    # Complete
     DONOR_SEC_SEQ_NUM_NON_NEGATIVE = auto()     # Complete
     DONOR_SPEC_LOCATION_CHOICE = auto()
+    CLONALITY = auto()
