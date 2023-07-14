@@ -333,12 +333,18 @@
             var s3 = document.getElementById("stageOfCycleOther");
             var s2Label = document.querySelector("label[for='stageOfCycle']");
             var s3Label = document.querySelector("label[for='stageOfCycleOther']");
+            var follicularbox = document.getElementById("follicular");
+            var lutealbox = document.getElementById("luteal");
             if (donorType.value === "other") {
                 s2.value = "Other";
                 s2.style.display = "none";
                 s2Label.style.display = "none";
                 s3.style.display = "block";
                 s3Label.style.display = "block";
+                follicularbox.value = "";
+                lutealbox.value = "";
+                follicularbox.setAttribute("disabled","disabled");
+                lutealbox.setAttribute("disabled","disabled");
             } else {
                 s2.style.display = "block";
                 s2Label.style.display = "block";
@@ -346,7 +352,7 @@
                 s3Label.style.display = "none";
             }
             s2.innerHTML = "";
-            if (s1.value == "menstrual") {
+            if (s1.value == "menstrual"){
                 s3.value = "";
                 s3.disabled = true;
                 s2.disabled = false;
@@ -355,6 +361,10 @@
                 s3.value = "";
                 s3.disabled = true;
                 s2.disabled = false;
+                follicularbox.value = "";
+                lutealbox.value = "";
+                follicularbox.setAttribute("disabled","disabled");
+                lutealbox.setAttribute("disabled","disabled");
                 var optionArray = ["|", "proestrus|Proestrus", "estrus|Estrus", "metestrus|Metestrus", "diestrus|Diestrus", "anestrus|Anestrus", "unspecified|Unspecified"];
             }else if (s1.value == "other"){
                 s3.disabled = false;
