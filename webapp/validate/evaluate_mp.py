@@ -773,12 +773,6 @@ def _ihc_rule(node: Node) -> list:
                 f'Primary Antibody Clonality must be a valid value.',
                 node
             ))
-        if ihcnodes[18]:
-            evaluation.append((
-                EvaluationWarningMp.CLONALITY,
-                f'Clonality is Required',
-                node
-            ))
 
     return evaluation
 
