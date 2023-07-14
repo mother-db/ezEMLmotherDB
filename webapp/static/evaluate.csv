@@ -108,3 +108,4 @@ ihc_14,Immunohistochemistry,Secondary Antibody Cat Number,ERROR,REQUIRED,A Secon
 ihc_15,Immunohistochemistry,Secondary Antibody Source Name,ERROR,REQUIRED,A Secondary Antibody <b>Source Name</b> is required.,
 ihc_16,Immunohistochemistry,Secondary Antibody Source City,ERROR,REQUIRED,A Secondary Antibody <b>Source City</b> is required.,
 ihc_17,Immunohistochemistry,Secondary Antibody Source State,ERROR,REQUIRED,A Secondary Antibody <b>Source State</b> is required.,
+ihc_18,Immunohistochemistry,Clonality,ERROR,REQUIRED,<b>Clonality</b> is required.,
