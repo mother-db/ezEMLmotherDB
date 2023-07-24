@@ -2,7 +2,7 @@
 {% import '_macros.html' as macros %}
 
 {# The following must agree with RELEASE_NUMBER in metapype_client.py #}
-{% set release_number = '2021.07.23' %}
+{% set release_number = '2023-07-14' %}
 {% set optional = 'Black' %}
 
 {% block head %}
@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block title %}
-{% if title %}{{ title }} - ezEML Metadata Editor{% endif %}
+{% if title %}{{ title }} - ezEML+MOTHER Metadata Editor{% endif %}
 {% endblock %}
 
 {% set non_saving_endswith = ['/eml/', '/create', '/open_eml_document', '/close',
