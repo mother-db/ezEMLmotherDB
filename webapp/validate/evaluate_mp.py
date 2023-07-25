@@ -338,7 +338,7 @@ def _donor_rule(node: Node) -> list:
                     for stchild in spchild.children:
                         if stchild.name == mdb_names.LIGHT_MICRO_STAIN:
                             for lmchild in stchild.children:
-                                if lmchild.name == mdb_names.SUDAN and lmchild.attributes.get("value", None)  not in mdb_names.SUDAN_VALUES:
+                                if lmchild.name == mdb_names.SUDAN and lmchild.attributes.get("value", None) not in mdb_names.SUDAN_VALUES:
                                     donornodes[25] = True
 
         if child.name == mdb_names.MAGNIFICATION:
