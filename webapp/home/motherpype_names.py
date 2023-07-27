@@ -330,7 +330,7 @@ SUDAN_VALUES = {
     "IV",
     "Black B",
     "Oil Red O",
-    "Osmium tetroxide",
+    "Osmium tetroxide"
 }
 
 CLONALITY_VALUES = {
