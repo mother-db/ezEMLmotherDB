@@ -70,9 +70,8 @@
         {{ macros.help_script(help_send_to_colleague_dialog, help_send_to_colleague_btn) }}
     });
     var image_value = document.getElementById("image_value").innerText;
-    var xml_value = document.getElementById("xml_value").innerText.slice(0, -4);
 
-    if (image_value.toLowerCase() === "none" || xml_value.toLowerCase() === "none"){
+    if (image_value.toLowerCase() === "none"){
         document.getElementById("submit_button").disabled = true;
     }
     function clicked(e)
