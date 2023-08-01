@@ -60,7 +60,7 @@ if Config.LOG_DEBUG:
 
 logger = daiquiri.getLogger('metapype_client: ' + __name__)
 
-RELEASE_NUMBER = '2021.10.27'
+RELEASE_NUMBER = '2023-07-14'
 
 NO_OP = ''
 UP_ARROW = html.unescape('&#x25B2;')
@@ -929,6 +929,10 @@ def load_eml(filename:str=None):
         eml_node = from_json(filename)
 
     if eml_node:
+        # If xml file is 1.0, changes donorGender to donorSex
+        donorGender_node = eml_node.find_single_node_by_path([names.ADDITIONALMETADATA, names.METADATA, mdb_names.MOTHER, mdb_names.DONOR_GENDER])
+        if donorGender_node:
+            donorGender_node.name = mdb_names.DONOR_SEX
         get_check_metadata_status(eml_node, filename)
     return eml_node
 

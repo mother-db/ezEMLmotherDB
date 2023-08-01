@@ -717,7 +717,7 @@ def check_immunohistochemistry(node, filename):
         add_to_evaluation('ihc_16', link)
     if find_err_code(evaluation_warnings, EvaluationWarningMp.IHC_SECONDARY_ANTIBODY_SOURCE_STATE_MISSING, mdb_names.IHC):
         add_to_evaluation('ihc_17', link)
-    if find_err_code(evaluation_warnings, EvaluationWarningMp.IHC_PRIMARY_ANTIBODY_CLONALITY_ENUM, mdb_names.IHC):
+    if find_err_code(evaluation_warnings, EvaluationWarningMp.CLONALITY, mdb_names.IHC):
         add_to_evaluation('ihc_18', link)
 
 
@@ -727,7 +727,7 @@ def check_donor(eml_node, filename):
     evaluation_warnings = evaluate_via_motherpype(eml_node)
     if find_err_code(evaluation_warnings, EvaluationWarningMp.DONOR_ID_MISSING, mdb_names.MOTHER):
         add_to_evaluation('donor_01', link)
-    if find_err_code(evaluation_warnings, EvaluationWarningMp.DONOR_GENDER_MISSING, mdb_names.MOTHER):
+    if find_err_code(evaluation_warnings, EvaluationWarningMp.DONOR_SEX_MISSING, mdb_names.MOTHER):
         add_to_evaluation('donor_02', link)
     if find_err_code(evaluation_warnings, EvaluationWarningMp.DONOR_LIFE_STAGE_MISSING, mdb_names.MOTHER):
         add_to_evaluation('donor_03', link)
@@ -764,7 +764,7 @@ def check_donor(eml_node, filename):
         add_to_evaluation('donor_14', link)
     if find_err_code(evaluation_warnings, EvaluationWarningMp.DONOR_MICRO_MODEL_MISSING, mdb_names.MOTHER):
         add_to_evaluation('donor_15', link)
-    if find_err_code(evaluation_warnings, EvaluationWarningMp.DONOR_GENDER_FEMALE, mdb_names.MOTHER):
+    if find_err_code(evaluation_warnings, EvaluationWarningMp.DONOR_SEX_FEMALE, mdb_names.MOTHER):
         add_to_evaluation('donor_16', link)
     if find_err_code(evaluation_warnings, EvaluationWarningMp.DONOR_SPEC_TISSUE_OVARY, mdb_names.MOTHER):
         add_to_evaluation('donor_17', link)

@@ -30,6 +30,7 @@ MOTHER = "mother"
 # Donor Elements
 DONOR = "donor"
 DONOR_ID = "donorID"
+DONOR_SEX = "donorSex"
 DONOR_GENDER = "donorGender"
 
 # has children
@@ -99,6 +100,10 @@ ESTRUS = "estrus"
 METESTRUS = "metestrus"
 DIESTRUS = "diestrus"
 ANESTRUS = "anestrus"
+
+#Test for other choice
+OTHER = "other"
+STRING_STAGE = "stage"
 
 SLIDE_ID = "slideID"
 SEC_SEQ_NUM = "sectionSeqNum"
@@ -274,7 +279,11 @@ ESTROUS_STAGE = {
     ANESTRUS: "mdb:estrousStageType"
 }
 
-CYCLE_STAGE = {**MAMMAL_STAGE, **ESTROUS_STAGE, EMPTY_UNSPECIFIED: ""}
+OTHER_STAGE = {
+    STRING_STAGE: "mdb:otherStageType"
+}
+
+CYCLE_STAGE = {**MAMMAL_STAGE, **ESTROUS_STAGE, **OTHER_STAGE, EMPTY_UNSPECIFIED: ""}
 
 MAMMAL_STAGE_VALUES = {
     FETAL,
@@ -321,7 +330,7 @@ SUDAN_VALUES = {
     "IV",
     "Black B",
     "Oil Red O",
-    "Osmium tetroxide",
+    "Osmium tetroxide"
 }
 
 CLONALITY_VALUES = {

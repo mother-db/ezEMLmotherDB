@@ -17,10 +17,11 @@ class DonorForm(EDIForm):
     donorType = SelectField('Cycle Type',
                                 choices=[("",""),
                                          ("menstrual", "Menstrual"),
-                                         ("estrous", "Estrous")],
+                                         ("estrous", "Estrous"),
+                                         ("other", "Other")],
                                 render_kw={'onchange': "speciesFunction(this.id, 'stageOfCycle')"})
     donorID = StringField('Donor ID *', validators=[InputRequired(message='Donor ID is required')])
-    donorGender = StringField('Gender *', validators=[InputRequired(message='Gender is required')], default='female')
+    donorSex = StringField('Sex *', validators=[InputRequired(message='Sex is required')], default='female')
     donorYears = IntegerField('Years', validators=[NumberRange(min=0), Optional()])
     donorDays = IntegerField('Days', validators=[NumberRange(min=0), Optional()])
     donorLifeStage = SelectField('Life Stage *',
@@ -30,7 +31,8 @@ class DonorForm(EDIForm):
                                           ("prepubertal", "Prepubertal"),
                                           ("pubertal", "Pubertal"),
                                           ("adult", "Adult"),
-                                          ("aging", "Aging")],
+                                          ("aging", "Aging"),
+                                          ("unspecified", "Unspecified")],
                                  validators=[InputRequired(message='Life Stage is required')])
     specimenSeqNum = IntegerField('Specimen Sequence Number *', 
                                 validators=[NumberRange(min=0), InputRequired(message='Specimen Sequence Number is required')])
@@ -71,8 +73,10 @@ class DonorForm(EDIForm):
                                         ("estrus", "Estrus"),
                                         ("metestrus", "Metestrus"),
                                         ("diestrus", "Diestrus"),
-                                        ("anestrus", "Anestrus")],
-                               render_kw={'onchange': "stageOfCycleFunction()"})
+                                        ("anestrus", "Anestrus"),
+                                        ("stage", "Other")],
+                               render_kw={'onchange': "stageOfCycleFunction()"}, validators=[Optional()])
+    stageOfCycleOther = StringField('Other Stage', validators=[Optional()])
     follicular = SelectField('Follicular Values',
                              choices=[("", ""),
                                       ("early", "Early"),
@@ -179,7 +183,7 @@ class DonorForm(EDIForm):
 
     def field_data(self) -> tuple:
         return (self.donorID.data,
-                self.donorGender.data,
+                self.donorSex.data,
                 self.donorYears.data,
                 self.donorDays.data,
                 self.donorLifeStage.data,

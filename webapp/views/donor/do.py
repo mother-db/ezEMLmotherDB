@@ -130,7 +130,7 @@ def new_donor(filename=None, node_id=None, method=None,
     if form.validate_on_submit() and method == 'POST':
         if save:
             donorID = form.donorID.data
-            donorGender = form.donorGender.data
+            donorSex = form.donorSex.data
             donorAge = Node('donorAge', parent=None)
             donorYears = form.donorYears.data
             donorDays = form.donorDays.data
@@ -144,6 +144,7 @@ def new_donor(filename=None, node_id=None, method=None,
             specimenCycle = Node('specimenCycle', parent=None)
             dayOfCycle = form.dayOfCycle.data
             stageOfCycle = form.stageOfCycle.data
+            stageOfCycleOther = form.stageOfCycleOther.data
             follicular = form.follicular.data
             luteal = form.luteal.data
             slideID = form.slideID.data
@@ -173,7 +174,7 @@ def new_donor(filename=None, node_id=None, method=None,
                 mother_node,
                 filename,
                 donorID,
-                donorGender,
+                donorSex,
                 donorAge,
                 donorYears,
                 donorDays,
@@ -184,6 +185,7 @@ def new_donor(filename=None, node_id=None, method=None,
                 specimenLocation,
                 dayOfCycle,
                 stageOfCycle,
+                stageOfCycleOther,
                 follicular,
                 luteal,
                 slideID,
@@ -223,14 +225,17 @@ def new_donor(filename=None, node_id=None, method=None,
                     mother_node, 
                     stageOfCycle, 
                     follicular, 
-                    luteal)
+                    luteal,
+                    stageOfCycleOther)
                 cycleType_node = mother_node.find_child(mdb_names.SPEC_CYCLE)
                 stageOfCycle_node = cycleType_node.find_child(mdb_names.STAGE_OF_CYCLE)
-                print(donorType)
+
                 if donorType == "menstrual":
                     stageOfCycle_node.add_extras("xsi:type", "mdb:menstrualStageType")
                 elif donorType == "estrous":
                     stageOfCycle_node.add_extras("xsi:type", "mdb:estrousStageType")
+                elif donorType == "other":
+                    stageOfCycle_node.add_extras("xsi:type", "mdb:otherStageType")
 
             elif stageOfCycle == "":
                 cycleType_node = mother_node.find_child(mdb_names.SPEC_CYCLE)
@@ -289,9 +294,9 @@ def populate_donor_form(form: DonorForm, node: Node):
     if donorID_node:
         form.donorID.data = donorID_node.content
 
-    donorGender_node = node.find_child(mdb_names.DONOR_GENDER)
-    if donorGender_node.content:
-        form.donorGender.data = donorGender_node.content
+    donorSex_node = node.find_child(mdb_names.DONOR_SEX)
+    if donorSex_node.content:
+        form.donorSex.data = donorSex_node.content
 
     donorAge_Node = node.find_child(mdb_names.DONOR_AGE)
     if donorAge_Node:
@@ -389,6 +394,11 @@ def populate_donor_form(form: DonorForm, node: Node):
             if anestrus_node:
                 form.stageOfCycle.data = anestrus_node.name
 
+            stageOfCycleOther_node = stageOfCycle_node.find_child(mdb_names.STRING_STAGE)
+            if stageOfCycleOther_node:
+                form.stageOfCycle.data = stageOfCycleOther_node.name
+                form.stageOfCycleOther.data = stageOfCycleOther_node.content
+
         if stageOfCycle_node:
             extras = stageOfCycle_node.extras
             if "xsi:type" in extras:
@@ -397,6 +407,8 @@ def populate_donor_form(form: DonorForm, node: Node):
                     form.donorType.data = "menstrual"
                 if xsi_type == "mdb:estrousStageType":
                     form.donorType.data = "estrous"
+                if xsi_type == "mdb:otherStageType":
+                    form.donorType.data = "other"
 
     slideID_node = node.find_child(mdb_names.SLIDE_ID)
     if slideID_node:
@@ -642,7 +654,7 @@ def create_specimen_location(mother_node:Node, specimenLocation, corpusLuteum=No
 """
 
 
-def create_stage_of_cycle(mother_node: Node, stageOfCycle: None, follicular: None, luteal: None):
+def create_stage_of_cycle(mother_node: Node, stageOfCycle: None, follicular: None, luteal: None, stageOfCycleOther: None):
     cycleType_node = mother_node.find_child(mdb_names.SPEC_CYCLE)
     stageOfCycle_node = cycleType_node.find_child(mdb_names.STAGE_OF_CYCLE)
     stageOfCycle_node.remove_children()
@@ -684,7 +696,10 @@ def create_stage_of_cycle(mother_node: Node, stageOfCycle: None, follicular: Non
     elif stageOfCycle == mdb_names.ANESTRUS:
         anestrus_node = Node(mdb_names.ANESTRUS, parent=stageOfCycle_node)
         stageOfCycle_node.add_child(anestrus_node)
-
+    elif stageOfCycle == mdb_names.STRING_STAGE:
+        stageOfCycleOther_node = Node(mdb_names.STRING_STAGE, parent=stageOfCycle_node)
+        stageOfCycle_node.add_child(stageOfCycleOther_node)
+        stageOfCycleOther_node.content = stageOfCycleOther
 
 """
     Function:       create_fixation

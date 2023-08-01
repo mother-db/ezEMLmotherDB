@@ -20,15 +20,15 @@
                         <table width="100%">
                         <tr>
                             <td width="2%">&nbsp;</td>
-                            <td style="padding: 5px 10px;" width="15%">{{ wtf.form_field(form.donorID) }}</td>
+                            <td style="padding: 5px 10px;" width="30%">{{ wtf.form_field(form.donorID) }}</td>
                             <td width="2%">&nbsp;</td>
-                            <td style="padding: 5px 10px;" width="15%">{{ wtf.form_field(form.donorGender) }}</td>
+                            <td style="padding: 5px 10px;" width="15%">{{ wtf.form_field(form.donorSex) }}</td>
                             <td width="2%">&nbsp;</td>
-                            <td style="padding: 5px 10px;" width="15%">{{ wtf.form_field(form.donorYears) }}</td>
+                            <td style="padding: 5px 10px;" width="10%">{{ wtf.form_field(form.donorYears) }}</td>
                             <td width="2%">&nbsp;</td>
-                            <td style="padding: 5px 10px;" width="15%">{{ wtf.form_field(form.donorDays) }}</td>
+                            <td style="padding: 5px 10px;" width="10%">{{ wtf.form_field(form.donorDays) }}</td>
                             <td width="2%">&nbsp;</td>
-                            <td style="padding: 5px 10px;" width="30%">{{ wtf.form_field(form.donorLifeStage) }}</td>
+                            <td style="padding: 5px 10px;" width="25%">{{ wtf.form_field(form.donorLifeStage) }}</td>
                             <td width="2%">&nbsp;</td>
                         </tr>
                         </table>
@@ -52,11 +52,13 @@
 
                                 <table>
                                     <td width="1%">&nbsp;</td>
-                                    <td style="padding: 1px 5px;" width="15%">{{ wtf.form_field(form.dayOfCycle) }}</td>
+                                    <td style="padding: 1px 5px;"  width="230px">{{ wtf.form_field(form.dayOfCycle) }}</td>
                                     <td width="1%">&nbsp;</td>
-                                    <td style="padding: 1px 5px;" width="15%">{{ wtf.form_field(form.donorType) }}</td>
+                                    <td style="padding: 1px 5px;"  width="230px">{{ wtf.form_field(form.donorType) }}</td>
                                     <td width="1%">&nbsp;</td>
-                                    <td style="padding: 5px 10px;" width="25%">{{ wtf.form_field(form.stageOfCycle) }}</td>
+                                    <td style="padding: 1px;">{{ wtf.form_field(form.stageOfCycle) }}</td>
+                                    <td width="1%">&nbsp;</td>
+                                    <td style="padding: 1px;">{{ wtf.form_field(form.stageOfCycleOther) }}</td>
                                     <td width="1%">&nbsp;</td>
                                 </table>
 
@@ -185,9 +187,8 @@
     {% set help_donor_btn = help_donor_id ~ '_btn' %}
     {% set help_donor_dialog = help_donor_id ~ '_dialog' %}
      <script type = "text/javascript">
-<!--        document.getElementById("donorGender").setAttribute("readonly","readonly");-->
+<!--        document.getElementById("donorSex").setAttribute("readonly","readonly");-->
         document.getElementById("specimenTissue").setAttribute("readonly","readonly");
-
         function specimenLocationFunction(){
             let specimenLocation_box_value = document.getElementById("specimenLocation").value;
             if(specimenLocation_box_value == "corpusLuteum"){
@@ -326,16 +327,52 @@
             }
         }
 
-        function speciesFunction(s1, s2){
+        function speciesFunction(s1, s2) {
             var s1 = document.getElementById(s1);
             var s2 = document.getElementById(s2);
-
+            var s3 = document.getElementById("stageOfCycleOther");
+            var s2Label = document.querySelector("label[for='stageOfCycle']");
+            var s3Label = document.querySelector("label[for='stageOfCycleOther']");
+            var follicularbox = document.getElementById("follicular");
+            var lutealbox = document.getElementById("luteal");
+            if (donorType.value === "other") {
+                s2.value = "Other";
+                s2.style.display = "none";
+                s2Label.style.display = "none";
+                s3.style.display = "block";
+                s3Label.style.display = "block";
+                follicularbox.value = "";
+                lutealbox.value = "";
+                follicularbox.setAttribute("disabled","disabled");
+                lutealbox.setAttribute("disabled","disabled");
+            } else {
+                s2.style.display = "block";
+                s2Label.style.display = "block";
+                s3.style.display = "none";
+                s3Label.style.display = "none";
+            }
             s2.innerHTML = "";
-            if(s1.value == "menstrual"){
-                var optionArray = ["|","unspecified|Unspecified","follicular|Follicular","pre-ovulatory|Pre-ovulatory","ovulation|Ovulation","luteal|Luteal"];
-            }else if(s1.value == "estrous"){
-                var optionArray = ["|","unspecified|Unspecified","proestrus|Proestrus","estrus|Estrus","metestrus|Metestrus","diestrus|Diestrus","anestrus|Anestrus"];
+            if (s1.value == "menstrual"){
+                s3.value = "";
+                s3.disabled = true;
+                s2.disabled = false;
+                var optionArray = ["|", "follicular|Follicular", "pre-ovulatory|Pre-ovulatory", "ovulation|Ovulation", "luteal|Luteal", "unspecified|Unspecified"];
+            } else if (s1.value == "estrous") {
+                s3.value = "";
+                s3.disabled = true;
+                s2.disabled = false;
+                follicularbox.value = "";
+                lutealbox.value = "";
+                follicularbox.setAttribute("disabled","disabled");
+                lutealbox.setAttribute("disabled","disabled");
+                var optionArray = ["|", "proestrus|Proestrus", "estrus|Estrus", "metestrus|Metestrus", "diestrus|Diestrus", "anestrus|Anestrus", "unspecified|Unspecified"];
+            }else if (s1.value == "other"){
+                s3.disabled = false;
+                s2.disabled = false;
+                var optionArray = ["stage|Other"];
+
             }else{
+                s3.value = "";
                 var optionArray = ["|"];
             }
             for(var option in optionArray){
@@ -365,6 +402,9 @@
         electronMicroscopyStainTypeFunction();
         speciesPrev("donorType", "stageOfCycle");
 
+        window.addEventListener("DOMContentLoaded", function() {
+        speciesFunction(s1,s2);
+        });
     </script>
     <script>
     $(function()

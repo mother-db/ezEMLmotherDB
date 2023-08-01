@@ -284,7 +284,7 @@ def _donor_rule(node: Node) -> list:
     for child in node.children:
         if child.name == mdb_names.DONOR_ID and child.content:
             donornodes[0] = True
-        if child.name == mdb_names.DONOR_GENDER and child.content:
+        if child.name == mdb_names.DONOR_SEX and child.content:
             if child.content == "female":
                 donornodes[15] = True
             donornodes[1] = True
@@ -338,7 +338,7 @@ def _donor_rule(node: Node) -> list:
                     for stchild in spchild.children:
                         if stchild.name == mdb_names.LIGHT_MICRO_STAIN:
                             for lmchild in stchild.children:
-                                if lmchild.name == mdb_names.SUDAN and lmchild.content not in mdb_names.SUDAN_VALUES:
+                                if lmchild.name == mdb_names.SUDAN and (lmchild.content not in mdb_names.SUDAN_VALUES and lmchild.attributes.get("value", None) not in mdb_names.SUDAN_VALUES):
                                     donornodes[25] = True
 
         if child.name == mdb_names.MAGNIFICATION:
@@ -353,9 +353,9 @@ def _donor_rule(node: Node) -> list:
                         for stage in stgchild.children:
                             if stage.name not in mdb_names.CYCLE_STAGE:
                                 donornodes[18] = True
-                            if stage.name == mdb_names.FOLLICULAR and stage.content not in mdb_names.FOLLICULAR_VALUES:
+                            if stage.name == mdb_names.FOLLICULAR and (stage.content not in mdb_names.FOLLICULAR_VALUES and stage.attributes.get("value", None) not in mdb_names.FOLLICULAR_VALUES):
                                 donornodes[23] = True
-                            if stage.name == mdb_names.LUTEAL and stage.content not in mdb_names.LUTEAL_VALUES:
+                            if stage.name == mdb_names.LUTEAL and (stage.content not in mdb_names.LUTEAL_VALUES and stage.attributes.get("value", None) not in mdb_names.LUTEAL_VALUES):
                                 donornodes[24] = True
                 if spcchild.name == mdb_names.DAY_OF_CYCLE:
                     if spcchild.content:
@@ -371,7 +371,7 @@ def _donor_rule(node: Node) -> list:
                         donornodes[28] = True   # Node is not required to have content
         if child.name == mdb_names.SPEC_LOCATION:
             for slchild in child.children:
-                if slchild.name == mdb_names.CORPUS_LUTEUM and slchild.content not in mdb_names.CORPUS_LUTEUM_VALUES:
+                if slchild.name == mdb_names.CORPUS_LUTEUM and (slchild.content not in mdb_names.CORPUS_LUTEUM_VALUES and slchild.attributes.get("value", None) not in mdb_names.CORPUS_LUTEUM_VALUES):
                     donornodes[22] = True
                 if slchild.name not in mdb_names.SPEC_LOCATION_VALUES:
                     donornodes[30] = True
@@ -430,8 +430,8 @@ def _donor_rule(node: Node) -> list:
         ))
     if not donornodes[1]:
         evaluation.append((
-            EvaluationWarningMp.DONOR_GENDER_MISSING,
-            f'Donor Gender is required.',
+            EvaluationWarningMp.DONOR_SEX_MISSING,
+            f'Donor Sex is required.',
             node
         ))
     if not donornodes[2]:
@@ -514,8 +514,8 @@ def _donor_rule(node: Node) -> list:
     #     ))
     if not donornodes[15]:
         evaluation.append((
-            EvaluationWarningMp.DONOR_GENDER_FEMALE,
-            f'Donor Gender must be female.',
+            EvaluationWarningMp.DONOR_SEX_FEMALE,
+            f'Donor Sex must be female.',
             node
         ))
     if not donornodes[16]:
