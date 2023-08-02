@@ -61,7 +61,7 @@ class DonorForm(EDIForm):
                                         ("mid", "Mid"),
                                         ("late", "Late"),
                                         ("albicans", "Albicans")], validators=[Optional()])
-    dayOfCycle = StringField('Day Of Cycle', validators=[])
+    dayOfCycle = StringField('Day Of Cycle', validators=[Optional()])
     stageOfCycle = SelectField('Stage Of Cycle',
                                choices=[("", ""),
                                         ("unspecified", "Unspecified"),

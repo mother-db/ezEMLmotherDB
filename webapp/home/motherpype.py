@@ -186,7 +186,7 @@ def clean_mother_json(node: Node, level: int = 0) -> str:
                         "http://mother-db.org/mdb https://resources.mother-db.org/xml/1.1/mdb.xsd")
     else:
         if node.name in mdb_names.SET_VALUE_NODES:
-            if not "value" in node.attributes:    # if there is already a value= set, delete it and create a new one
+            if not "value" in node.attributes and node.content:  #if there is already a value= set, delete it and create a new one
                 node.add_extras("value", node.content)
             node.content = ""  # if the node value is an attribute, delete the content after adding it as such
             
