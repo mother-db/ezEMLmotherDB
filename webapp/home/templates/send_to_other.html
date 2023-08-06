@@ -70,8 +70,9 @@
         {{ macros.help_script(help_send_to_colleague_dialog, help_send_to_colleague_btn) }}
     });
     var image_value = document.getElementById("image_value").innerText;
+    var check_metadata_color = document.getElementsByClassName("red_circle").length;
 
-    if (image_value.toLowerCase() === "none"){
+    if (image_value.toLowerCase() === "none" || check_metadata_color == 1){
         document.getElementById("submit_button").disabled = true;
     }
     function clicked(e)
