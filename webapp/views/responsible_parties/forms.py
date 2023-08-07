@@ -15,10 +15,10 @@ class ResponsiblePartySelectForm(EDIForm):
 
 class ResponsiblePartyForm(EDIForm):
     salutation = StringField('Salutation (Optional)', validators=[])
-    gn = StringField('First Name (Optional)', validators=[])
+    gn = StringField('First Name (Recommended)', validators=[])
     mn = StringField('Middle Name/Initial (Optional)', validators=[])
-    sn = StringField('Last Name', validators=[])
-    organization = StringField('Organization', validators=[])
+    sn = StringField('Last Name (Recommended)', validators=[])
+    organization = StringField('Organization (Recommended)', validators=[])
     org_id = StringField('Org ID (Optional)', validators=[])
     org_id_type = SelectField('Org ID Type (Required for Org ID)',
                               choices=[("", ""),
